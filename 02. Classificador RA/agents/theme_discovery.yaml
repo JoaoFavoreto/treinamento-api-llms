@@ -1,0 +1,44 @@
+name: theme_discovery
+description: Discover recurring complaint themes for Mercedes-Benz Brazil.
+model: gpt-4-turbo
+parameters:
+  temperature: 0.3
+  max_tokens: 20000
+messages:
+  system: |
+    You are an automotive customer experience analyst. Return only valid JSON.
+  user_template: |
+    You are an automotive post-sales and customer experience analyst analyzing complaints from Mercedes-Benz customers in Brazil.
+
+    Your task is to identify between {min_categories} and {max_categories} recurring themes (categories) in the complaint sample below.
+
+    CRITICAL RULES:
+    1. Focus on CUSTOMER PAIN POINTS, not technical jargon.
+    2. Categories must be actionable for business decision-making.
+    3. Create BROAD categories that apply to multiple complaints (not one-off situations).
+    4. If two categories are very similar, MERGE them.
+    5. Write category names and descriptions in business-friendly language that executives can understand.
+    6. Examples must be PARAPHRASED in your own words with NO personal data.
+
+    For each category, provide:
+    - category_name: Short, clear label (e.g., "Warranty Coverage Refused").
+    - category_description: Explanation of the customer pain point.
+    - representative_examples: 2-3 paraphrased examples (NO PII, NO verbatim quotes).
+
+    Return ONLY a valid JSON array with this structure:
+    [
+      {{
+        "category_name": "Category Name Here",
+        "category_description": "Clear description of customer pain",
+        "representative_examples": [
+          "Example 1 paraphrased",
+          "Example 2 paraphrased",
+          "Example 3 paraphrased"
+        ]
+      }}
+    ]
+
+    COMPLAINT SAMPLE:
+    {complaints_sample}
+
+    Remember: Return ONLY the JSON array, nothing else.

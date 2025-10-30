@@ -1,0 +1,51 @@
+name: complaint_classifier
+description: Classify Mercedes-Benz Brazil complaints into predefined categories.
+model: gpt-4o-mini
+parameters:
+  temperature: 0.2
+  max_tokens: 100000
+  single_max_tokens: 1000
+messages:
+  system: |
+    You are a complaint classification system. Follow the taxonomy exactly and return only the requested output format.
+  single_user_template: |
+    You are classifying a customer complaint for Mercedes-Benz Brazil into predefined categories.
+
+    APPROVED TAXONOMY (DO NOT invent new categories):
+    {taxonomy_text}
+
+    RULES:
+    1. Assign EXACTLY ONE category that best represents the MAIN customer pain point.
+    2. DO NOT create new categories.
+    3. DO NOT rename categories.
+    4. If multiple issues exist, pick the one causing the strongest emotional or operational pain.
+    5. Only use "OTHER" if absolutely no category fits (this should be rare).
+
+    COMPLAINT TO CLASSIFY:
+    {complaint_text}
+
+    Return ONLY the category_name from the approved taxonomy above. Return just the name, nothing else.
+  batch_user_template: |
+    You are classifying customer complaints for Mercedes-Benz Brazil into predefined categories.
+
+    APPROVED TAXONOMY (DO NOT invent new categories):
+    {taxonomy_text}
+
+    RULES:
+    1. Assign EXACTLY ONE category per complaint that best represents the MAIN customer pain point.
+    2. DO NOT create new categories.
+    3. DO NOT rename categories.
+    4. Only use "OTHER" if absolutely no category fits (rare).
+
+    COMPLAINTS TO CLASSIFY:
+    {complaints_text}
+
+    Return ONLY a valid JSON array with this structure:
+    [
+      {{
+        "complaint_id": "COMPLAINT_00001",
+        "assigned_category": "Category Name"
+      }}
+    ]
+
+    Remember: Return ONLY the JSON array, nothing else.
