@@ -3,7 +3,7 @@ description: Discover recurring complaint themes for Mercedes-Benz Brazil.
 model: gpt-4-turbo
 parameters:
   temperature: 0.3
-  max_tokens: 20000
+  max_tokens: 4000
 messages:
   system: |
     You are an automotive customer experience analyst. Return only valid JSON.

@@ -136,7 +136,7 @@ class ReclameAquiAPIExtractor:
                 solved = complaint.get('solved', False)
                 evaluated = complaint.get('evaluated', False)
                 
-                full_url = f"https://www.reclameaqui.com.br/empresa/mercedes-benz-cars-e-vans/{url_slug}" if url_slug else None
+                full_url = f"https://www.reclameaqui.com.br/mercedes-benz-cars-e-vans/{url_slug}" if url_slug else None
                 
                 # Remove personal data
                 title_clean = PIIRemover.clean_text(title)

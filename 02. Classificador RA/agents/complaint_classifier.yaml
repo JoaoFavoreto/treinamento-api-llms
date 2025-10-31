@@ -3,8 +3,8 @@ description: Classify Mercedes-Benz Brazil complaints into predefined categories
 model: gpt-4o-mini
 parameters:
   temperature: 0.2
-  max_tokens: 100000
-  single_max_tokens: 1000
+  max_tokens: 15000
+  single_max_tokens: 3000
 messages:
   system: |
     You are a complaint classification system. Follow the taxonomy exactly and return only the requested output format.
